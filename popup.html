@@ -406,7 +406,7 @@ position: absolute;
 <button class="choice-btn" id="Development" onclick="selectOption(this);nextQuestion();" style="height:35px;">Development</button>
 <button class="choice-btn" id="Other" onclick="selectOption(this);nextQuestion();" style="height:35px;">Other</button>
 <span class="betterx-tag">BetterX</span>
-<button class="btn" onclick="nextQuestion()" style="
+<button class="btn" onclick="showNextQuestion('question1', 'question2')" style="
     position: absolute;
     bottom: 10px;
     right: 25px;
@@ -432,7 +432,7 @@ position: absolute;
       display: flex; position: relative;
       flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px;">
+      min-height: 400px;; display: none">
 <button class="close-btn" onclick="closeForm()">X</button>
 <br/><br/>
 <label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;"><b>What aspects of a feedback collection tool matter to you the most?</b></label>
@@ -443,7 +443,7 @@ position: absolute;
 <button class="choice-btn multi-choice-btn" id="not-understand" onclick="selectMultipleOption(this); " style="height:35px;">In-app Experience</button>
 <span class="betterx-tag">BetterX</span>
 <button class="btn-prev" onclick="previousQuestion()" type="button">Previous</button>
-<button class="btn" onclick="nextQuestion2()" style="
+<button class="btn" onclick="showNextQuestion('question2', 'question3')" style="
     position: absolute;
     bottom: 10px;
     right: 25px;
@@ -469,7 +469,7 @@ position: absolute;
       display: flex; position: relative;
       flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px;">
+      min-height: 400px;; display: none">
 <button class="close-btn" onclick="closeForm()">X</button>
 <br/><br/>
 <label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;">
@@ -506,7 +506,7 @@ position: absolute;
       display: flex; position: relative;
       flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px;"><br/><br/><br/>
+      min-height: 400px;; display: none"><br/><br/><br/>
 <button class="close-btn" onclick="closeForm()">X</button>
 <br/><br/><br/><br/><br/><br/>
 <label for="q4" style="color: white; padding-left: 35px; padding-right: 35px;"><b>Thank you so much for the feedback</b></label>
@@ -589,6 +589,15 @@ function previousQuestion() {
     }
 }
 
+
+function showNextQuestion(currentDivId, nextDivId) {
+    var currentDiv = document.getElementById(currentDivId);
+    var nextDiv = document.getElementById(nextDivId);
+    if (currentDiv && nextDiv) {
+        currentDiv.style.display = "none";
+        nextDiv.style.display = "block";
+    }
+}
 </script>
 </div></body>
 </html>
