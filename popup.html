@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
+
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -21,6 +23,25 @@ body {font-family: Arial, Helvetica, sans-serif;}
   width: 280px;
 }
 
+.betterx-tag {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    line-height: 21px;
+    font-weight: 800;  
+    font-weight: bold
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    width: 80px;
+    height: 23px;
+    font-weight: bold;
+    flex-shrink: 0;
+    color: White;
+    margin-right: 2px;
+    padding: 16px 20px;
+}
+
 .choice-btn {
     display: block;
     width: 80%; border: 1px solid #fff;
@@ -28,27 +49,43 @@ body {font-family: Arial, Helvetica, sans-serif;}
     cursor: pointer;    
     border: 2px solid white;
   color: white;
-  padding: 2px 2px;
+  padding: 1px 2px;
   text-align: center;
   display: inline-block;
-  margin: 2px 10px;
+  margin: 5px auto;
   cursor: pointer;
   border-radius: 10px;
   background-color: transparent;
 }
 
+.btn-prev {
+    position: absolute;
+    bottom: 20px;
+    left: 130px; /* Positioned to the left */
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    
+}
+
+
+
 .btn {
   position: absolute;
   bottom: 20px;
-  right: 20px;
-  border-radius: 50px;
+  right: 25px;
+  border-radius: 10px;
   background-color: white;
   color: black;
+  height: 40px;      /* Set the height */
+  width: 80px;      /* Set the width */
 }
 
 .choice-btn.active {
     background-color: #fff;
-    color: #7000ff;
+    color: #808080;
 }
 .choice-btn:hover {
   background-color: white;
@@ -97,6 +134,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
   outline: none;
 }
 .progress-bar {
+position: absolute;
+  bottom: 10px;   /* Adjust this value as needed */
+  left: 10px;  /* Adjust this value as needed */
   display: flex;
   height: 2px;
   width: 100%;
@@ -133,6 +173,63 @@ body {font-family: Arial, Helvetica, sans-serif;}
   color: black;
 }
 
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 1px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    width: 25px;
+    height: 55px;
+    text-align: right;
+    line-height: 23px;
+    color: red;
+}
+
+/* Default rectangle style for multi-choice-btn */
+.multi-choice-btn:before {
+    content: "";
+    width: 80%; border: 1px solid #fff;
+    position: absolute;
+    left: 20px; /* Adjust this value to position the rectangle further or closer to the button */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the rectangle */
+    width: 20px;
+    height: 10px;
+    border: 1px solid white;
+    background-color: transparent; /* Ensure the background is clear initially */
+}
+
+/* Tick mark for active multi-choice-btn */
+.multi-choice-btn.active:after {
+    content: "✓";
+    position: absolute;
+    left: 25px; /* Adjust this value to position the tick mark inside the rectangle */
+    top: 50%;
+    transform: translateY(-50%) scale(0.8); /* Vertically center the tick mark and scale it down a bit */
+    color:red ;/* Color of the tick mark; set to your preferred color */
+    font-weight: bold;
+}
+
+/* Active rectangle style for multi-choice-btn */
+.multi-choice-btn.active:before {
+    background-color: white;
+}
+
+.multi-choice-btn {
+    position: relative; /* Ensures that the :before pseudo-element is positioned relative to this button */
+    padding-left: 40px; /* Provide some space for the rectangle */
+}
+
+.multi-choice-btn.active {
+    background-color: transparent; /* Keep the button's background transparent even when active */
+    color: white; /* Adjust text color if necessary */
+}
+
 /* Add a red background color to the cancel button */
 .form-container .cancel {
    color: white;
@@ -142,7 +239,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   width: 30%;
   margin-bottom:10px;
   opacity: 0.9;
-  position: absolute;
+  position: relative;
   bottom: 10px;
   right: 10px;
   border-radius: 50px;
@@ -207,6 +304,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
              1s gravity ease-in infinite both,
              5s position linear infinite both;            
 }
+
+/* Add consistent alignment for all question divs */
+#question1, #question2, #question3, #question4 {
+    align-items: center; /* Center the contents horizontally */
+}
+
 
 @keyframes bang {
   to {
@@ -281,142 +384,146 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </style>
 </head>
 <body>
-
-
-
 <div class="form-popup" id="myForm">
-  <form action="/action_page.php" class="form-container" id="myFormContainer" onsubmit="event.preventDefault();">
-    <div id="question1" style="
+<form action="/action_page.php" class="form-container" id="myFormContainer" onsubmit="event.preventDefault();">
+<div id="question1" style="
       border-radius: 24px 24px 0px 0px;
-      background-color: #7000ff;
+      background-color: #808080;
       width: 344px;
       overflow: hidden;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: flex; position: relative;
+      flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px;
-    " >
-    <div style="text-align: center;">
-    <h2 style="color: white;">Feedback form</h2>
-    </div>
-     <div class="progress-bar">
-  <div id="progress-1" class="progress-segment active"></div>
-  <div id="progress-2" class="progress-segment"></div>
-  <div id="progress-3" class="progress-segment"></div>
-</div><br><br>
-    <label for="q1" style="color: white; "><b>Did you find this product useful?</b></label>
-    <br/>
-   
-    <button id="yes" class="choice-btn" onclick="selectOption(this); nextQuestion();">Yes</button><br>
-    <button id="no" class="choice-btn" onclick="selectOption(this); nextQuestion();">No</button><br>
-    <button id="not-understand" class="choice-btn" onclick="selectOption(this);nextQuestion();">I did not understand</button><br>
-    <span style="
-                position: relative;
-                line-height: 21px;
-                font-weight: 800;                
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 80px;
-                height: 23px;
-                font-weight: bold
-                flex-shrink: 0;
-                color: White;
-                 margin-right: 20px; margin-top: 65px; padding: 16px 20px;
-              ">BetterX</span>
-   <button type="button" class="btn" onclick="nextQuestion()" style="
+      min-height: 400px;">
+<button class="close-btn" onclick="closeForm()">X</button>
+<br/> <br/>
+<label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;"><b>In your organization, what role do you play?</b></label>
+<br>
+<button class="choice-btn" id="Product" onclick="selectOption(this); nextQuestion();" style="height:35px;">Product Management</button>
+<button class="choice-btn" id="UX" onclick="selectOption(this); nextQuestion();" style="height:35px;">User Experience</button>
+<button class="choice-btn" id="Marketing" onclick="selectOption(this);nextQuestion();" style="height:35px;">Marketing</button>
+<button class="choice-btn" id="Development" onclick="selectOption(this);nextQuestion();" style="height:35px;">Development</button>
+<button class="choice-btn" id="Other" onclick="selectOption(this);nextQuestion();" style="height:35px;">Other</button>
+<span class="betterx-tag">BetterX</span>
+<button class="btn" onclick="nextQuestion()" style="
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    border-radius: 50px;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
     background-color: white;
-    color: black;">Next</button>
-
+    color: black;" type="button">Next</button>
+<div class="progress-bar">
+<div class="progress-segment active" id="progress-1"></div>
+<div class="progress-segment" id="progress-2"></div>
+<div class="progress-segment" id="progress-3"></div>
+<div class="progress-segment" id="progress-4"></div>
 </div>
-
-
-    <div id="question2" style="
+</br></div>
+<div id="question2" style="
       border-radius: 24px 24px 0px 0px;
-      background-color: #7000ff;
+      background-color: #808080;
       width: 344px;
       overflow: hidden;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: flex; position: relative;
+      flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px; display:none;" > <br><br>
-       <div class="progress-bar">
-  <div id="progress-1" class="progress-segment"></div>
-  <div id="progress-2" class="progress-segment active"></div>
-  <div id="progress-3" class="progress-segment"></div>
+      min-height: 400px;">
+<button class="close-btn" onclick="closeForm()">X</button>
+<br/><br/>
+<label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;"><b>What aspects of a feedback collection tool matter to you the most?</b></label>
+<br>
+<button class="choice-btn multi-choice-btn" id="Ease-of-Use" onclick="selectMultipleOption(this); " style="height:35px;">Ease of Use</button>
+<button class="choice-btn multi-choice-btn" id="Contextual-Triggers" onclick="selectMultipleOption(this);" style="height:35px;">Contextual Triggers</button>
+<button class="choice-btn multi-choice-btn" id="not-understand" onclick="selectMultipleOption(this); " style="height:35px;">Customizable Surveys</button>
+<button class="choice-btn multi-choice-btn" id="not-understand" onclick="selectMultipleOption(this); " style="height:35px;">In-app Experience</button>
+<span class="betterx-tag">BetterX</span>
+<button class="btn-prev" onclick="previousQuestion()" type="button">Previous</button>
+<button class="btn" onclick="nextQuestion2()" style="
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    color: black;" type="button">Next</button>
+<div class="progress-bar">
+<div class="progress-segment" id="progress-1"></div>
+<div class="progress-segment active" id="progress-2"></div>
+<div class="progress-segment" id="progress-3"></div>
+<div class="progress-segment" id="progress-4"></div>
 </div>
-        <label for="q1"><b><br>How is the survey?</b><br><br></label>
-    <br/>
-    <button id="yes" class="choice-btn" onclick="selectOption(this); nextQuestion2();">Good</button><br>
-    <button id="no" class="choice-btn" onclick="selectOption(this); nextQuestion2();">Bad</button><br>
-    <button id="not-understand" class="choice-btn" onclick="selectOption(this); nextQuestion2();">I did not know </button><br>
-    <span style="
-                position: relative;
-                line-height: 21px;
-                font-weight: 800;                
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 80px;
-                height: 23px;
-                font-weight: bold
-                flex-shrink: 0;
-                color: White;
-                 margin-right: 20px; margin-top: 150px; padding: 16px 20px;
-              ">BetterX</span>
-
-    <button type="button" class="btn" onclick="nextQuestion2()">Next</button>            
-    </div>
-   
-    <div id="question3" style="
+</br></div>
+<div id="question3" style="
       border-radius: 24px 24px 0px 0px;
-      background-color: #7000ff;
+      background-color: #808080;
       width: 344px;
       overflow: hidden;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: flex; position: relative;
+      flex-direction: column;     
       justify-content: flex-start;
-      min-height: 400px; display:none;" ><br><br>
-       <div class="progress-bar">
-  <div id="progress-1" class="progress-segment"></div>
-  <div id="progress-2" class="progress-segment"></div>
-  <div id="progress-3" class="progress-segment active"></div>
+      min-height: 400px;">
+<button class="close-btn" onclick="closeForm()">X</button>
+<br/><br/>
+<label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;">
+<b>
+       Want to stay updated with the latest from TheBetterX? Please share your email.
+      </b>
+</label> <br/><br/>
+<input placeholder="Email address" required="" style="width: 80%; margin-left: 10%; margin-right: 10%;" type="email"/>
+<span class="betterx-tag">BetterX</span>
+<button class="btn-prev" onclick="previousQuestion()" type="button">Previous</button>
+<button class="btn" onclick="nextQuestion3()" style="
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    color: black;" type="submit">Submit</button>
+<div class="progress-bar">
+<div class="progress-segment"></div>
+<div class="progress-segment"></div>
+<div class="progress-segment active"></div>
+<div class="progress-segment"></div>
 </div>
-        <label for="q1"><b><br><br><br><br><br><br>Thank you so much for the feedback</b></label>  
-        <div class="fireworks">
-    <div class="before"></div>
-    <div class="after"></div>
-  </div>
- <span style="
-                position: relative;
-                line-height: 21px;
-                font-weight: 800;                
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 80px;
-                height: 23px;
-                font-weight: bold
-                flex-shrink: 0;
-                color: White;
-                 margin-right: 20px; margin-top: 130px; padding: 16px 20px;
-              ">BetterX</span>
-   
-     <button type="button" class="btn cancel" onclick="closeForm(); showFireworks();">Close</button>    
-    </div>
-   
-  </form>
-
+</div>
+<div id="question4" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #808080;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex; position: relative;
+      flex-direction: column;     
+      justify-content: flex-start;
+      min-height: 400px;"><br/><br/><br/>
+<button class="close-btn" onclick="closeForm()">X</button>
+<br/><br/><br/><br/><br/><br/>
+<label for="q4" style="color: white; padding-left: 35px; padding-right: 35px;"><b>Thank you so much for the feedback</b></label>
+<div class="fireworks">
+<div class="before"></div>
+<div class="after"></div>
+</div>
+<span class="betterx-tag">BetterX</span>
+<button class="btn" onclick="closeForm(); showFireworks();" type="button">Close</button>
+<div class="progress-bar">
+<div class="progress-segment" id="progress-1"></div>
+<div class="progress-segment" id="progress-2"></div>
+<div class="progress-segment" id="progress-3"></div>
+<div class="progress-segment active" id="progress-4"></div>
+</div>
+</div>
+</form>
 <script>
 
 function closeForm() {
@@ -431,22 +538,57 @@ function selectOption(btn) {
     btn.classList.add('active');
 }
 
+function selectMultipleOption(btn) {
+    // Toggle 'active' class for multi-choice buttons
+    if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+    } else {
+        btn.classList.add('active');
+    }
+}
+
 
 function nextQuestion() {
-
 document.getElementById('progress-2').classList.add('active');
     document.getElementById("question1").style.display = "none";
     document.getElementById("question2").style.display = "block";
 }
 function nextQuestion2() {
-
-document.getElementById('progress-3').classList.add('active');
-
+	document.getElementById('progress-3').classList.add('active');
     document.getElementById("question1").style.display = "none";
     document.getElementById("question2").style.display = "none";
     document.getElementById("question3").style.display = "block";
 }
-</script>
 
-</body>
+function nextQuestion3() {
+document.getElementById('progress-4').classList.add('active');
+document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "none";
+    document.getElementById("question3").style.display = "none";
+    document.getElementById("question4").style.display = "block";
+}
+
+function previousQuestion() {
+    if(document.getElementById("question2").style.display === "block") {
+        document.getElementById('progress-1').classList.add('active');
+        document.getElementById('progress-2').classList.remove('active');
+        document.getElementById("question1").style.display = "block";
+        document.getElementById("question2").style.display = "none";
+    }
+    else if(document.getElementById("question3").style.display === "block") {
+        document.getElementById('progress-2').classList.add('active');
+        document.getElementById('progress-3').classList.remove('active');
+        document.getElementById("question2").style.display = "block";
+        document.getElementById("question3").style.display = "none";
+    }
+    else if(document.getElementById("question4").style.display === "block") {
+        document.getElementById('progress-3').classList.add('active');
+        document.getElementById('progress-4').classList.remove('active');
+        document.getElementById("question3").style.display = "block";
+        document.getElementById("question4").style.display = "none";
+    }
+}
+
+</script>
+</div></body>
 </html>
