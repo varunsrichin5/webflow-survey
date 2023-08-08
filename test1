@@ -1,655 +1,665 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
-background-color: #555;
-color: white;
-padding: 16px 20px;
-border: none;
-cursor: pointer;
-opacity: 0.8;
-position: absolute; /* Changed from fixed to absolute */
-top: 50%; /* Center vertically */
-left: 50%; /* Center horizontally */
-transform: translate(-50%, -50%); /* Correct the position so the middle of the button, not its top-left corner, is at the center of the page */
-width: 280px;
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: absolute; /* Changed from fixed to absolute */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Correct the position so the middle of the button, not its top-left corner, is at the center of the page */
+  width: 280px;
+}
+
+.invite-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .invite-btn {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .invite-btn.yes {
+            background-color: green;
+            color: white;
+        }
+        
+        .invite-btn.no {
+            background-color: red;
+            color: white;
+        }
+        
+.betterx-tag {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    line-height: 21px;
+    font-weight: 800;  
+    font-weight: bold
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    width: 80px;
+    height: 23px;
+    font-weight: bold;
+    flex-shrink: 0;
+    color: White;
+    margin-right: 2px;
+    padding: 16px 20px;
 }
 
 .choice-btn {
-display: block;
-width: 80%; border: 1px solid #fff;
-color: #fff;
-cursor: pointer;
-border: 2px solid white;
-color: white;
-padding: 1px 2px;
-text-align: center;
-display: inline-block;
-margin: 5px auto;
-cursor: pointer;
-border-radius: 10px;
-background-color: transparent;
+    display: block;
+    width: 80%; border: 1px solid #fff;
+    color: #fff;      
+    cursor: pointer;    
+    border: 2px solid white;
+  color: white;
+  padding: 1px 2px;
+  text-align: center;
+  display: inline-block;
+  margin: 5px auto;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.btn-prev {
+    position: absolute;
+    bottom: 20px;
+    left: 130px; /* Positioned to the left */
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    
 }
 
 .btn {
-position: absolute;
-bottom: 20px;
-right: 25px;
-border-radius: 10px;
-background-color: white;
-color: black;
-height: 40px; /* Set the height */
-width: 80px; /* Set the width */
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  height: 40px;      /* Set the height */
+  width: 80px;      /* Set the width */
 }
 
 .choice-btn.active {
-background-color: #fff;
-color: #7000ff;
+    background-color: #fff;
+    color: #808080;
 }
 .choice-btn:hover {
-background-color: white;
-color: black;
+  background-color: white;
+  color: black;
 }
 /* The popup form - hidden by default */
 .form-popup {
-/* display: none; */
-position: fixed;
-bottom: 5px;
-right: 5px;
-left: 5px;
-/*border: 3px solid #f1f1f1; */
-border: none ;
-z-index: 9;
-padding: 3px; /* space between content and border */
-margin: 3px; /* space outside the border */
-border-radius: 25px 25px 25px 25px; /* rounded corners */
+ display: none; 
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+    left: 5px;
+  /*border: 3px solid #f1f1f1;  */
+  border: none ;
+  z-index: 9;
+   padding: 3px; /* space between content and border */
+  margin: 3px; /* space outside the border */
+  border-radius: 25px 25px 25px 25px;   /* rounded corners */
 }
 
 /* Add styles to the form container */
 .form-container {
-max-width: 300px;
-padding: 10px;
-background-color: none;
-position: relative; /* Add this */
+  max-width: 300px;
+  padding: 10px;
+  background-color: none;
+   position: relative; /* Add this */
 }
 
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
-width: 100%;
-padding: 15px;
-margin: 5px 0 22px 0;
-border: none;
-background: #f1f1f1;
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
 }
 
 .form-container label {
-color: white;
-position: relative; /* Add this */
+  color: white;
+   position: relative; /* Add this */
 }
 
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-background-color: #ddd;
-outline: none;
+  background-color: #ddd;
+  outline: none;
 }
 .progress-bar {
 position: absolute;
-bottom: 10px; /* Adjust this value as needed */
-left: 10px; /* Adjust this value as needed */
-display: flex;
-height: 2px;
-width: 100%;
-border: 1px solid #000;
+  bottom: 10px;   /* Adjust this value as needed */
+  left: 10px;  /* Adjust this value as needed */
+  display: flex;
+  height: 2px;
+  width: 100%;
+  border: 1px solid #000;
 }
 
 
 .progress-segment {
-width: 33.33%; /* each segment takes up 1/3 of the total bar width */
-height: 2px; /* adjust this value to make the bar thinner or thicker */
-background-color: #000; /* inactive color */
+  width: 33.33%; /* each segment takes up 1/3 of the total bar width */
+  height: 2px; /* adjust this value to make the bar thinner or thicker */
+  background-color: #000; /* inactive color */
 }
 
 /* The active section could be colored differently */
 .progress-segment.active {
-background-color: #fff;
+  background-color: #fff;
 }
 
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-color: white;
-padding: 16px 20px;
-border: none;
-cursor: pointer;
-width: 30%;
-margin-bottom:10px;
-opacity: 0.9;
-position: absolute;
-bottom: 10px;
-right: 10px;
-border-radius: 50px;
-background-color: white;
-color: black;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  margin-bottom:10px;
+  opacity: 0.9;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
 }
 
 .close-btn {
-position: absolute;
-right: 20px;
-top: 10px;
-background-color: transparent;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-font-weight: bold;
-font-size: 20px;
-width: 25px;
-height: 55px;
-text-align: right;
-line-height: 23px;
-color: red;
+    position: absolute;
+    right: 15px;
+    top: 1px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    width: 25px;
+    height: 55px;
+    text-align: right;
+    line-height: 23px;
+    color: red;
 }
 
 /* Default rectangle style for multi-choice-btn */
 .multi-choice-btn:before {
-content: "";
-position: absolute;
-left: 20px; /* Adjust this value to position the rectangle further or closer to the button */
-top: 50%;
-transform: translateY(-50%); /* Vertically center the rectangle */
-width: 20px;
-height: 10px;
-border: 1px solid white;
-background-color: transparent; /* Ensure the background is clear initially */
+    content: "";
+    width: 80%; border: 1px solid #fff;
+    position: absolute;
+    left: 20px; /* Adjust this value to position the rectangle further or closer to the button */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the rectangle */
+    width: 20px;
+    height: 10px;
+    border: 1px solid white;
+    background-color: transparent; /* Ensure the background is clear initially */
 }
 
 /* Tick mark for active multi-choice-btn */
 .multi-choice-btn.active:after {
-content: "✓";
-position: absolute;
-left: 25px; /* Adjust this value to position the tick mark inside the rectangle */
-top: 50%;
-transform: translateY(-50%) scale(0.8); /* Vertically center the tick mark and scale it down a bit */
-color:red ;/* Color of the tick mark; set to your preferred color */
-font-weight: bold;
+    content: "✓";
+    position: absolute;
+    left: 25px; /* Adjust this value to position the tick mark inside the rectangle */
+    top: 50%;
+    transform: translateY(-50%) scale(0.8); /* Vertically center the tick mark and scale it down a bit */
+    color:red ;/* Color of the tick mark; set to your preferred color */
+    font-weight: bold;
 }
 
 /* Active rectangle style for multi-choice-btn */
 .multi-choice-btn.active:before {
-background-color: white;
+    background-color: white;
 }
 
 .multi-choice-btn {
-position: relative; /* Ensures that the :before pseudo-element is positioned relative to this button */
-padding-left: 40px; /* Provide some space for the rectangle */
+    position: relative; /* Ensures that the :before pseudo-element is positioned relative to this button */
+    padding-left: 40px; /* Provide some space for the rectangle */
 }
 
 .multi-choice-btn.active {
-background-color: transparent; /* Keep the button's background transparent even when active */
-color: white; /* Adjust text color if necessary */
+    background-color: transparent; /* Keep the button's background transparent even when active */
+    color: white; /* Adjust text color if necessary */
 }
 
 /* Add a red background color to the cancel button */
 .form-container .cancel {
-color: white;
-padding: 16px 20px;
-border: none;
-cursor: pointer;
-width: 30%;
-margin-bottom:10px;
-opacity: 0.9;
-position: relative;
-bottom: 10px;
-right: 10px;
-border-radius: 50px;
-background-color: white;
-color: black;
+   color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  margin-bottom:10px;
+  opacity: 0.9;
+  position: relative;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
 }
 
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
-opacity: 1;
+  opacity: 1;
 }
 
 
 .fireworks {
-position: relative;
-height: 50px;
-width: 200px;
+  position: relative;
+  height: 50px;
+  width: 200px;
 }
 
 .before {
-position: absolute;
-height: 5px;
-width: 5px;
-border-radius: 50%;
-box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84,
-190px 16.33333px #002bff, -113px -308.66667px #ff009d,
--109px -287.66667px #ffb300, -50px -313.66667px #ff006e,
-226px -31.66667px #ff4000, 180px -351.66667px #ff00d0,
--12px -338.66667px #00f6ff, 220px -388.66667px #99ff00,
--69px -27.66667px #ff0400, -111px -339.66667px #6200ff,
-155px -237.66667px #00ddff, -152px -380.66667px #00ffd0,
--50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00,
--88px 10.33333px #0d00ff, 112px -309.66667px #005eff,
-69px -415.66667px #ff00a6, 168px -100.66667px #ff004c,
--244px 24.33333px #ff6600, 97px -325.66667px #ff0066,
--211px -182.66667px #00ffa2, 236px -126.66667px #b700ff,
-140px -196.66667px #9000ff, 125px -175.66667px #00bbff,
-118px -381.66667px #ff002f, 144px -111.66667px #ffae00,
-36px -78.66667px #f600ff, -63px -196.66667px #c800ff,
--218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff,
--36px -412.66667px #ff00d4, 209px -106.66667px #00fff2,
-91px -278.66667px #000dff, -22px -191.66667px #9dff00,
-139px -392.66667px #a6ff00, 56px -2.66667px #0099ff,
--156px -276.66667px #ea00ff, -163px -233.66667px #00fffb,
--238px -346.66667px #00ff73, 62px -363.66667px #0088ff,
-244px -170.66667px #0062ff, 224px -142.66667px #b300ff,
-141px -208.66667px #9000ff, 211px -285.66667px #ff6600,
-181px -128.66667px #1e00ff, 90px -123.66667px #c800ff,
-189px 70.33333px #00ffc8, -18px -383.66667px #00ff33,
-100px -6.66667px #ff008c;
-animation: 1s bang ease-out infinite backwards,
-1s gravity ease-in infinite backwards,
-5s position linear infinite backwards;
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84,
+    190px 16.33333px #002bff, -113px -308.66667px #ff009d,
+    -109px -287.66667px #ffb300, -50px -313.66667px #ff006e,      
+    226px -31.66667px #ff4000, 180px -351.66667px #ff00d0,        
+    -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00,
+    -69px -27.66667px #ff0400, -111px -339.66667px #6200ff,
+    155px -237.66667px #00ddff, -152px -380.66667px #00ffd0,
+    -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00,
+    -88px 10.33333px #0d00ff, 112px -309.66667px #005eff,
+    69px -415.66667px #ff00a6, 168px -100.66667px #ff004c,
+    -244px 24.33333px #ff6600, 97px -325.66667px #ff0066,
+    -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff,
+    140px -196.66667px #9000ff, 125px -175.66667px #00bbff,
+    118px -381.66667px #ff002f, 144px -111.66667px #ffae00,
+    36px -78.66667px #f600ff, -63px -196.66667px #c800ff,
+    -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff,
+    -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2,
+    91px -278.66667px #000dff, -22px -191.66667px #9dff00,
+    139px -392.66667px #a6ff00, 56px -2.66667px #0099ff,
+    -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb,
+    -238px -346.66667px #00ff73, 62px -363.66667px #0088ff,
+    244px -170.66667px #0062ff, 224px -142.66667px #b300ff,    
+    141px -208.66667px #9000ff, 211px -285.66667px #ff6600,
+    181px -128.66667px #1e00ff, 90px -123.66667px #c800ff,
+    189px 70.33333px #00ffc8, -18px -383.66667px #00ff33,
+    100px -6.66667px #ff008c;
+ 
+  animation: 1s bang ease-out infinite backwards,
+            1s gravity ease-in infinite backwards,
+            5s position linear infinite backwards;
 }
 
 .after {
-position: absolute;
-height: 5px;
-width: 5px;
-animation: 1s bang ease-out infinite both,
-1s gravity ease-in infinite both,
-5s position linear infinite both;
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  animation: 1s bang ease-out infinite both,
+             1s gravity ease-in infinite both,
+             5s position linear infinite both;            
+}
+
+/* Add consistent alignment for all question divs */
+#question1, #question2, #question3, #question4 {
+    align-items: center; /* Center the contents horizontally */
 }
 
 
 @keyframes bang {
-to {
-box-shadow: -120px -378.66667px red, 248px -86.66667px deeppink,
-190px 26.33333px blue, -113px -428.66667px limegreen,
--109px -407.66667px yellow, -50px -433.66667px cyan,
-226px -51.66667px lightseagreen, 180px -491.66667px tomato,
--12px -478.66667px gold, 220px -538.66667px violet,
--69px -77.66667px lightslategray, -111px -479.66667px hotpink,
-155px -337.66667px dodgerblue, -152px -530.66667px plum,
--50px -107.66667px lavender, -95px -335.66667px lawngreen,
--88px 50.33333px aqua, 112px -429.66667px lightcoral,
-69px -545.66667px yellowgreen, 168px -160.66667px burlywood,
--244px 44.33333px violet, 97px -465.66667px sandybrown,
--211px -252.66667px tan, 236px -196.66667px rosybrown,
-140px -276.66667px mediumseagreen, 125px -305.66667px palegreen,
-118px -531.66667px darkturquoise, 144px -151.66667px royalblue,
-36px -128.66667px darkviolet, -63px -276.66667px salmon,
--218px -307.66667px chocolate, -134px -527.66667px orchid,
--36px -562.66667px lime, 209px -166.66667px coral,
-91px -428.66667px darkorchid, -22px -281.66667px olive,
-139px -552.66667px mediumvioletred, 56px -42.66667px indigo ,
--156px -426.66667px burlywood, -163px -383.66667px seagreen,
--238px -506.66667px darkolivegreen, 62px -523.66667px slategray,
-244px -230.66667px cadetblue, 224px -302.66667px darkmagenta,
-141px -328.66667px goldenrod, 211px -425.66667px darkseagreen,
-181px -198.66667px darkgreen, 90px -193.66667px darkturquoise,
-189px 110.33333px coral, -18px -533.66667px lightpink,
-100px -46.66667px lightyellow;
-opacity: 0;
-}
+  to {
+    box-shadow: -120px -378.66667px red, 248px -86.66667px deeppink,
+                190px 26.33333px blue, -113px -428.66667px limegreen,
+                -109px -407.66667px yellow, -50px -433.66667px cyan,
+                226px -51.66667px lightseagreen, 180px -491.66667px tomato,
+                -12px -478.66667px gold,  220px -538.66667px violet,
+                -69px -77.66667px lightslategray, -111px -479.66667px hotpink,
+                155px -337.66667px dodgerblue, -152px -530.66667px plum,        
+                -50px -107.66667px lavender, -95px -335.66667px lawngreen,
+                -88px 50.33333px aqua, 112px -429.66667px lightcoral,
+                69px -545.66667px yellowgreen, 168px -160.66667px burlywood,
+                -244px 44.33333px violet, 97px -465.66667px sandybrown,
+                -211px -252.66667px tan, 236px -196.66667px rosybrown,
+                140px -276.66667px mediumseagreen, 125px -305.66667px palegreen,
+                118px -531.66667px darkturquoise, 144px -151.66667px royalblue,
+                36px -128.66667px darkviolet, -63px -276.66667px salmon,
+                -218px -307.66667px chocolate, -134px -527.66667px orchid,
+                -36px -562.66667px lime, 209px -166.66667px coral,
+                91px -428.66667px darkorchid, -22px -281.66667px olive,            
+                139px -552.66667px mediumvioletred, 56px -42.66667px indigo ,
+                -156px -426.66667px burlywood, -163px -383.66667px seagreen,
+                -238px -506.66667px darkolivegreen, 62px -523.66667px slategray,
+                244px -230.66667px cadetblue, 224px -302.66667px darkmagenta,  
+                141px -328.66667px goldenrod, 211px -425.66667px darkseagreen,
+                181px -198.66667px darkgreen, 90px -193.66667px darkturquoise,
+                189px 110.33333px coral, -18px -533.66667px lightpink,
+                100px -46.66667px lightyellow;  
+    opacity: 0;              
+  }
 }
 
 @keyframes position {
-0%, 19.9% {
-margin-top: 10%;
-margin-left: 40%;
-}
-20%, 39.9% {
-margin-top: 40%;
-margin-left: 30%;
-}
-40%, 59.9% {
-margin-top: 20%;
-margin-left: 70%
-}
-60%, 79.9% {
-margin-top: 30%;
-margin-left: 20%;
-}
-80%, 99.9% {
-margin-top: 30%;
-margin-left: 80%;
-}
+  0%, 19.9% {
+     margin-top: 10%;
+     margin-left: 40%;
+  }
+  20%, 39.9% {
+     margin-top: 40%;
+     margin-left: 30%;
+  }
+  40%, 59.9% {    
+    margin-top: 20%;
+    margin-left: 70%
+  }
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
 }
 
 @keyframes gravity {
-0% {
-transform: translateY(-200px);
-opacity: 0;
-}
-10% {
-opacity: 1;
-}
-20% {
-transform: translateY(0);
-}
-100% {
-transform: translateY(200px);
-}
-}
-</style>
-<style>
-.form-container {
-transition: opacity 0.5s;
-}
-
-.choice-btn {
-transition: background-color 0.3s, transform 0.3s;
-}
-
-.choice-btn:hover {
-transform: scale(1.05);
-}
-
-.choice-btn:active {
-transform: scale(0.95);
-}
-</style>
-<style>
-.choice-btn {
-transition: all 0.3s ease-in-out;
-}
-
-.form-container {
-transition: all 0.3s ease-in-out;
+  0% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(0);
+  }  
+  100% {
+    transform: translateY(200px);    
+  }
 }
 </style>
 </head>
 <body>
-<div class="form-popup" id="myForm">
-<form action="/action_page.php" class="form-container" id="myFormContainer" onsubmit="event.preventDefault();" style="display: block;">
-<div id="question1" style="
-border-radius: 24px 24px 0px 0px;
-background-color: #D3D3D3;
-width: 344px;
-overflow: hidden;
-flex-shrink: 0;
-display: flex; position: relative;
-flex-direction: column;
-justify-content: flex-start;
-min-height: 400px;">
-<button class="close-btn" onclick="closeForm()" style="color: #888888;">
-X
-</button>
-<br/>
-<br/>
-<br/>
-<label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;">
-<b>
-In your organization, what role do you play?
-</b>
-</label>
-<br/>
-<button class="choice-btn" id="Product" onclick="selectOption(this); nextQuestion();" style="height:35px;">
-Product Management
-</button>
-<button class="choice-btn" id="UX" onclick="selectOption(this); nextQuestion();" style="height:35px;">
-User Experience
-</button>
-<button class="choice-btn" id="Marketing" onclick="selectOption(this);nextQuestion();" style="height:35px;">
-Marketing
-</button>
-<button class="choice-btn" id="Development" onclick="selectOption(this);nextQuestion();" style="height:35px;">
-Development
-</button>
-<button class="choice-btn" id="Other" onclick="selectOption(this);nextQuestion();" style="height:35px;">
-Other
-</button>
-<span style="
-position: relative;
-line-height: 21px;
-font-weight: 800;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 80px;
-height: 23px;
-font-weight: bold
-flex-shrink: 0;
-color: White;
-margin-right: 20px; bottom: 5px;
-margin-top: 20px; padding: 16px 20px;
-">
-BetterX
-</span>
-<button class="btn" onclick="nextQuestion()" style="
-position: absolute;
-bottom: 2px;
-right: 5px;
-border-radius: 40px;
-background-color: white;
-color: black;" type="button">
-Next
-</button>
-<div class="progress-bar">
-<div class="progress-segment active" id="progress-1">
-</div>
-<div class="progress-segment" id="progress-2">
-</div>
-<div class="progress-segment" id="progress-3">
-</div>
-<div class="progress-segment" id="progress-4">
-</div>
-</div>
-</div>
-<div id="question2" style="
-border-radius: 24px 24px 0px 0px;
-background-color: #D3D3D3;
-width: 344px;
-overflow: hidden;
-flex-shrink: 0; position: relative;
-display: flex;
-flex-direction: column;
-align-items: flex-start; padding-left: 35px;
-justify-content: flex-start;
-min-height: 400px; display:none;">
-<br/>
-<br/>
-<br/>
-<button class="close-btn" onclick="closeForm()" style="color: #888888;">
-X
-</button>
-<label for="q2" style="color: white; padding-left: 35px; padding-right: 35px;">
-What aspects of a feedback collection tool matter to you the most?
-</label>
-<br/>
-<button class="choice-btn multi-choice-btn" id="Ease-of-Use" onclick="selectMultipleOption(this); " style="height:35px;">
-Ease of Use
-</button>
-<button class="choice-btn multi-choice-btn" id="Contextual-Triggers" onclick="selectMultipleOption(this);" style="height:35px;">
-Contextual Triggers
-</button>
-<button class="choice-btn multi-choice-btn" id="not-understand" onclick="selectMultipleOption(this); " style="height:35px;">
-Customizable Surveys
-</button>
-<button class="choice-btn multi-choice-btn" id="not-understand" onclick="selectMultipleOption(this); " style="height:35px;">
-In-app Experience
-</button>
-<span style="
-position: relative;
-line-height: 21px;
-font-weight: 800;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 80px;
-height: 23px;
-font-weight: bold
-flex-shrink: 0;
-color: White;
-margin-right: 20px; margin-top: 50px; padding: 16px 20px;
-">
-BetterX
-</span>
-<button class="btn" onclick="nextQuestion2()" type="button">
-Next
-</button>
-<div class="progress-bar">
-<div class="progress-segment" id="progress-1">
-</div>
-<div class="progress-segment active" id="progress-2">
-</div>
-<div class="progress-segment" id="progress-3">
-</div>
-<div class="progress-segment" id="progress-4">
-</div>
-</div>
-</div>
-<div id="question3" style="
-border-radius: 24px 24px 0px 0px;
-background-color: #D3D3D3;
-width: 344px;
-overflow: hidden;
-flex-shrink: 0;
-display: flex; position: relative;
-flex-direction: column;
-align-items: flex-start;
-justify-content: flex-start;
-min-height: 400px; display:none;">
-<button class="close-btn" onclick="closeForm()" style="color: #888888;">
-X
-</button>
-<br/>
-<br/>
-<br/>
-<label for="q3" style>
-<b>
-Want to stay updated with the latest from TheBetterX? Please share your email.
-</b>
-</label>
-<br/>
-<br/>
-<input placeholder="Email address" required="" style="width: 90%; margin-left: 5%; margin-right: 5%;" type="email"/>
-<button class="btn" onclick="nextQuestion3()" type="submit">
-Submit
-</button>
-<div class="progress-bar">
-<div class="progress-segment">
-</div>
-<div class="progress-segment">
-</div>
-<div class="progress-segment active">
-</div>
-<div class="progress-segment">
-</div>
-</div>
-</div>
-<div id="question4" style="
-border-radius: 24px 24px 0px 0px;
-background-color: #D3D3D3;
-width: 344px;
-overflow: hidden;
-flex-shrink: 0;
-display: flex; position: relative;
-flex-direction: column;
-align-items: flex-start;
-justify-content: flex-start;
-min-height: 400px; display:none;">
-<br/>
-<br/>
-<br/>
-<button class="close-btn" onclick="closeForm()" style="color: #888888;">
-X
-</button>
-<label for="q4" style="color: white; padding-left: 35px; padding-right: 20px;text-align: center;">
-<b>
-<br/>
-<br/>
-Thank you so much for the feedback
-</b>
-</label>
-<div class="fireworks">
-<div class="before">
-</div>
-<div class="after">
-</div>
-</div>
-<span style="
-position: relative;
-line-height: 21px;
-font-weight: 800;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 80px;
-height: 23px;
-font-weight: bold
-flex-shrink: 0;
-color: White;
-margin-right: 20px; margin-top: 130px; padding: 16px 20px;
-">
-BetterX
-</span>
-<button class="btn" onclick="closeForm(); showFireworks();" type="button">
-Close
-</button>
-<div class="progress-bar">
-<div class="progress-segment" id="progress-1">
-</div>
-<div class="progress-segment" id="progress-2">
-</div>
-<div class="progress-segment" id="progress-3">
-</div>
-<div class="progress-segment active" id="progress-4">
-</div>
-</div>
-</div>
-</form>
-<script>
-function closeForm() {
-document.getElementById("myForm").style.display = "none";
-}
 
-function selectOption(btn) {
-let buttons = document.getElementsByClassName('choice-btn');
-for (let i = 0; i < buttons.length; i++) {
-buttons[i].classList.remove('active');
+<!-- Invite Form -->
+    <div class="invite-form" id="inviteForm">
+        <p>Do you want to submit a response?</p>
+        <button class="invite-btn yes" onclick="showMainForm()">Yes</button>
+        <button class="invite-btn no" onclick="hideInviteForm()">No</button>
+    </div>
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container" id="myFormContainer" onsubmit="event.preventDefault();">
+  
+    <div id="question1" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #808080;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex; position: relative;
+      flex-direction: column;     
+      justify-content: flex-start;
+      min-height: 400px;" >
+    
+    <button class="close-btn" onclick="closeForm()">X</button>
+    <br> <br>
+<label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;"><b>In your organization, what role do you play?</b></label>
+    <br/>
+   
+    <button id="Product" class="choice-btn" style="height:35px;" onclick="selectOption(this); nextQuestion();">Product Management</button>
+    <button id="UX" class="choice-btn" style="height:35px;" onclick="selectOption(this); nextQuestion();">User Experience</button>
+    <button id="Marketing" class="choice-btn" style="height:35px;" onclick="selectOption(this);nextQuestion();">Marketing</button>
+    <button id="Development" class="choice-btn" style="height:35px;" onclick="selectOption(this);nextQuestion();">Development</button>
+    <button id="Other" class="choice-btn" style="height:35px;" onclick="selectOption(this);nextQuestion();">Other</button>
+    
+   <span class="betterx-tag">BetterX</span>
+             
+   <button type="button" class="btn" onclick="nextQuestion()" style="
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    color: black;">Next</button>
+    
+    <div class="progress-bar">
+  <div id="progress-1" class="progress-segment active"></div>
+  <div id="progress-2" class="progress-segment"></div>
+  <div id="progress-3" class="progress-segment"></div>
+  <div id="progress-4" class="progress-segment"></div>   
+</div>
+
+</div>
+    <div id="question2" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #808080;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;  position: relative;
+      display: flex;
+      flex-direction: column;     
+      align-items: flex-start; padding-left: 35px; 
+      justify-content: flex-start;
+      min-height: 400px; display:none;" > 
+      <button class="close-btn" onclick="closeForm()">X</button>
+                        <br><br> 
+        <label for="q1" style="color: white; padding-right: 35px; margin:0; 
+        word-wrap:break-word;"><b>What aspects of a feedback collection tool matter to you the most?</b></label>                   
+    <br/> 
+    <button id="Ease-of-Use" class="choice-btn multi-choice-btn" style="height:35px;" onclick="selectMultipleOption(this); ">Ease of Use</button>
+<button id="Contextual-Triggers" class="choice-btn multi-choice-btn" style="height:35px;" onclick="selectMultipleOption(this);">Contextual Triggers</button> 
+    <button id="not-understand" class="choice-btn multi-choice-btn" style="height:35px;" onclick="selectMultipleOption(this); ">Customizable Surveys</button>
+    <button id="not-understand" class="choice-btn multi-choice-btn" style="height:35px;" onclick="selectMultipleOption(this); ">In-app Experience</button>
+  
+	<span class="betterx-tag">BetterX</span>
+                <button type="button" class="btn-prev" onclick="previousQuestion()">Previous</button>
+
+   <button type="button" class="btn" onclick="nextQuestion2()" style="
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    color: black;">Next</button>
+    <div class="progress-bar">
+  <div id="progress-1" class="progress-segment"></div>
+  <div id="progress-2" class="progress-segment active"></div>
+  <div id="progress-3" class="progress-segment"></div>
+  <div id="progress-4" class="progress-segment"></div>
+</div>
+    </div>
+   
+    <div id="question3" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #808080;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      align-items: center;
+      display: flex; position: relative;
+      flex-direction: column;     
+      justify-content: flex-start;
+      min-height: 400px; display:none;" > 
+      <button class="close-btn" onclick="closeForm()">X</button>
+      <br><br>
+        <label for="q1" style="color: white; padding-left: 35px; padding-right: 35px;word-wrap:break-word;margin:0;">
+        
+      <b>
+       Want to stay updated with the latest from TheBetterX? Please share your email.
+      </b>
+     </label> <br><br>
+       
+        <input placeholder="Email address" required="" style="width: 80%; margin-left: 10%; margin-right: 10%;" type="email"/>
+        <span class="betterx-tag">BetterX</span>
+
+          <button type="button" class="btn-prev" onclick="previousQuestion()">Previous</button>
+  
+   <button type="submit" class="btn" onclick="nextQuestion3()" style="
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border-radius: 40px;
+    height: 40px;
+    width: 85px;
+    text-align: center;
+    background-color: white;
+    color: black;">Submit</button>
+    
+        
+        <div class="progress-bar">
+          <div class="progress-segment"></div>
+          <div class="progress-segment"></div>
+          <div class="progress-segment active"></div>
+          <div class="progress-segment"></div>
+          
+       </div>
+    </div>
+   
+   
+    <div id="question4" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #808080;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;  position: relative;
+      flex-direction: column;
+      align-items: flex-start;
+      align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+      min-height: 400px; display:none;" ><br><br><br>
+      <button class="close-btn" onclick="closeForm()">X</button>
+       
+<br><br><br><br><br><br>
+ <label for="q4" style="color: white; padding-left: 35px; padding-right: 20px;text-align: center;"><b>Thank you so much for the feedback</b></label>  
+        <div class="fireworks">
+    <div class="before"></div>
+    <div class="after"></div>
+  </div>
+ <span class="betterx-tag">BetterX</span>
+     <button type="button" class="btn" onclick="closeForm(); showFireworks();">Close</button>   
+     <div class="progress-bar">
+  <div id="progress-1" class="progress-segment"></div>
+  <div id="progress-2" class="progress-segment"></div>
+  <div id="progress-3" class="progress-segment"></div>
+  <div id="progress-4" class="progress-segment active"></div>   
+</div>
+    </div>   
+     
+  </form>
+<script>
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
 }
-btn.classList.add('active');
+ function showMainForm() {
+            document.getElementById('inviteForm').style.display = 'none';
+            document.getElementById('myForm').style.display = 'block';
+        }
+
+        function hideInviteForm() {
+            document.getElementById('inviteForm').style.display = 'none';
+            // You can add any action you want when "No" is clicked. For now, I am just hiding the invite form.
+        }
+        
+function selectOption(btn) {
+    let buttons = document.getElementsByClassName('choice-btn');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+    btn.classList.add('active');
 }
 
 function selectMultipleOption(btn) {
-// Toggle 'active' class for multi-choice buttons
-if (btn.classList.contains('active')) {
-//btn.classList.remove('active');
-} else {
-btn.classList.add('active');
-}
+    // Toggle 'active' class for multi-choice buttons
+    if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+    } else {
+        btn.classList.add('active');
+    }
 }
 
 
 function nextQuestion() {
 document.getElementById('progress-2').classList.add('active');
-document.getElementById("question1").style.display = "none";
-document.getElementById("question2").style.display = "block";
+    document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "block";
 }
 function nextQuestion2() {
-document.getElementById('progress-3').classList.add('active');
-document.getElementById("question1").style.display = "none";
-document.getElementById("question2").style.display = "none";
-document.getElementById("question3").style.display = "block";
+	document.getElementById('progress-3').classList.add('active');
+    document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "none";
+    document.getElementById("question3").style.display = "block";
 }
 
 function nextQuestion3() {
 document.getElementById('progress-4').classList.add('active');
 document.getElementById("question1").style.display = "none";
-document.getElementById("question2").style.display = "none";
-document.getElementById("question3").style.display = "none";
-document.getElementById("question4").style.display = "block";
+    document.getElementById("question2").style.display = "none";
+    document.getElementById("question3").style.display = "none";
+    document.getElementById("question4").style.display = "block";
 }
+
+function previousQuestion() {
+    if(document.getElementById("question2").style.display === "block") {
+        document.getElementById('progress-1').classList.add('active');
+        document.getElementById('progress-2').classList.remove('active');
+        document.getElementById("question1").style.display = "block";
+        document.getElementById("question2").style.display = "none";
+    }
+    else if(document.getElementById("question3").style.display === "block") {
+        document.getElementById('progress-2').classList.add('active');
+        document.getElementById('progress-3').classList.remove('active');
+        document.getElementById("question2").style.display = "block";
+        document.getElementById("question3").style.display = "none";
+    }
+    else if(document.getElementById("question4").style.display === "block") {
+        document.getElementById('progress-3').classList.add('active');
+        document.getElementById('progress-4').classList.remove('active');
+        document.getElementById("question3").style.display = "block";
+        document.getElementById("question4").style.display = "none";
+    }
+}
+
 </script>
-</div>
+
 </body>
 </html>
