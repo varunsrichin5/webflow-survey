@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>   /* Hey !! Pavan added this text for test */
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: absolute; /* Changed from fixed to absolute */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Correct the position so the middle of the button, not its top-left corner, is at the center of the page */
+  width: 280px;
+}
+
+.choice-btn {
+    display: block;
+    width: 80%; border: 1px solid #fff;
+    color: #fff;      
+    cursor: pointer;    
+    border: 2px solid white;
+  color: white;
+  padding: 2px 2px;
+  text-align: center;
+  display: inline-block;
+  margin: 2px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+}
+
+.choice-btn.active {
+    background-color: #fff;
+    color: #7000ff;
+}
+.choice-btn:hover {
+  background-color: white;
+  color: black;
+}
+/* The popup form - hidden by default */
+.form-popup {
+ /* display: none; */
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+    left: 5px;
+  /*border: 3px solid #f1f1f1;  */
+  border: none ;
+  z-index: 9;
+   padding: 3px; /* space between content and border */
+  margin: 3px; /* space outside the border */
+  border-radius: 25px 25px 25px 25px;   /* rounded corners */
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: none;
+   position: relative; /* Add this */
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container label {
+  color: white;
+   position: relative; /* Add this */
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.progress-bar {
+  display: flex;
+  height: 2px;
+  width: 100%;
+  border: 1px solid #000;
+}
+
+
+.progress-segment {
+  width: 33.33%; /* each segment takes up 1/3 of the total bar width */
+  height: 2px; /* adjust this value to make the bar thinner or thicker */
+  background-color: #000; /* inactive color */
+}
+
+/* The active section could be colored differently */
+.progress-segment.active {
+  background-color: #fff;
+}
+
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  margin-bottom:10px;
+  opacity: 0.9;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+   color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  margin-bottom:10px;
+  opacity: 0.9;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+.fireworks {
+  position: relative;
+  height: 50px;
+  width: 200px;
+}
+
+.before {
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84,
+    190px 16.33333px #002bff, -113px -308.66667px #ff009d,
+    -109px -287.66667px #ffb300, -50px -313.66667px #ff006e,      
+    226px -31.66667px #ff4000, 180px -351.66667px #ff00d0,        
+    -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00,
+    -69px -27.66667px #ff0400, -111px -339.66667px #6200ff,
+    155px -237.66667px #00ddff, -152px -380.66667px #00ffd0,
+    -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00,
+    -88px 10.33333px #0d00ff, 112px -309.66667px #005eff,
+    69px -415.66667px #ff00a6, 168px -100.66667px #ff004c,
+    -244px 24.33333px #ff6600, 97px -325.66667px #ff0066,
+    -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff,
+    140px -196.66667px #9000ff, 125px -175.66667px #00bbff,
+    118px -381.66667px #ff002f, 144px -111.66667px #ffae00,
+    36px -78.66667px #f600ff, -63px -196.66667px #c800ff,
+    -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff,
+    -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2,
+    91px -278.66667px #000dff, -22px -191.66667px #9dff00,
+    139px -392.66667px #a6ff00, 56px -2.66667px #0099ff,
+    -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb,
+    -238px -346.66667px #00ff73, 62px -363.66667px #0088ff,
+    244px -170.66667px #0062ff, 224px -142.66667px #b300ff,    
+    141px -208.66667px #9000ff, 211px -285.66667px #ff6600,
+    181px -128.66667px #1e00ff, 90px -123.66667px #c800ff,
+    189px 70.33333px #00ffc8, -18px -383.66667px #00ff33,
+    100px -6.66667px #ff008c;
+ 
+  animation: 1s bang ease-out infinite backwards,
+            1s gravity ease-in infinite backwards,
+            5s position linear infinite backwards;
+}
+
+.after {
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  animation: 1s bang ease-out infinite both,
+             1s gravity ease-in infinite both,
+             5s position linear infinite both;            
+}
+
+@keyframes bang {
+  to {
+    box-shadow: -120px -378.66667px red, 248px -86.66667px deeppink,
+                190px 26.33333px blue, -113px -428.66667px limegreen,
+                -109px -407.66667px yellow, -50px -433.66667px cyan,
+                226px -51.66667px lightseagreen, 180px -491.66667px tomato,
+                -12px -478.66667px gold,  220px -538.66667px violet,
+                -69px -77.66667px lightslategray, -111px -479.66667px hotpink,
+                155px -337.66667px dodgerblue, -152px -530.66667px plum,        
+                -50px -107.66667px lavender, -95px -335.66667px lawngreen,
+                -88px 50.33333px aqua, 112px -429.66667px lightcoral,
+                69px -545.66667px yellowgreen, 168px -160.66667px burlywood,
+                -244px 44.33333px violet, 97px -465.66667px sandybrown,
+                -211px -252.66667px tan, 236px -196.66667px rosybrown,
+                140px -276.66667px mediumseagreen, 125px -305.66667px palegreen,
+                118px -531.66667px darkturquoise, 144px -151.66667px royalblue,
+                36px -128.66667px darkviolet, -63px -276.66667px salmon,
+                -218px -307.66667px chocolate, -134px -527.66667px orchid,
+                -36px -562.66667px lime, 209px -166.66667px coral,
+                91px -428.66667px darkorchid, -22px -281.66667px olive,            
+                139px -552.66667px mediumvioletred, 56px -42.66667px indigo ,
+                -156px -426.66667px burlywood, -163px -383.66667px seagreen,
+                -238px -506.66667px darkolivegreen, 62px -523.66667px slategray,
+                244px -230.66667px cadetblue, 224px -302.66667px darkmagenta,  
+                141px -328.66667px goldenrod, 211px -425.66667px darkseagreen,
+                181px -198.66667px darkgreen, 90px -193.66667px darkturquoise,
+                189px 110.33333px coral, -18px -533.66667px lightpink,
+                100px -46.66667px lightyellow;  
+    opacity: 0;              
+  }
+}
+
+@keyframes position {
+  0%, 19.9% {
+     margin-top: 10%;
+     margin-left: 40%;
+  }
+  20%, 39.9% {
+     margin-top: 40%;
+     margin-left: 30%;
+  }
+  40%, 59.9% {    
+    margin-top: 20%;
+    margin-left: 70%
+  }
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+@keyframes gravity {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(0);
+  }  
+  100% {
+    transform: translateY(200px);    
+  }
+}
+</style>
+
+<script>
+function submitForm() {
+    var data = {
+        email: document.getElementById('userEmail').value,
+        // Add more lines to extract other values
+    };
+
+    fetch('https://hook.us1.make.com/yrif9pxqsliol90k8ds7cokq34bv1ms0', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+}
+</script>
+</head>
+<body>
+
+
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container" id="myFormContainer" onsubmit="event.preventDefault();">
+    <div id="question1" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #7000ff;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 400px;
+    " >
+    <div style="text-align: center;">
+    <h2 style="color: white;">Feedback form</h2>
+    </div>
+     <div class="progress-bar">
+  <div id="progress-1" class="progress-segment active"></div>
+  <div id="progress-2" class="progress-segment"></div>
+  <div id="progress-3" class="progress-segment"></div>
+</div><br><br>
+    <label for="q1" style="color: white; "><b>Did you find this product useful?</b></label>
+    <br/>
+   
+    <button id="yes" class="choice-btn" onclick="selectOption(this); nextQuestion();">Yes</button><br>
+    <button id="no" class="choice-btn" onclick="selectOption(this); nextQuestion();">No</button><br>
+    <button id="not-understand" class="choice-btn" onclick="selectOption(this);nextQuestion();">I did not understand</button><br>
+    <span style="
+                position: relative;
+                line-height: 21px;
+                font-weight: 800;                
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 80px;
+                height: 23px;
+                font-weight: bold
+                flex-shrink: 0;
+                color: White;
+                 margin-right: 20px; margin-top: 65px; padding: 16px 20px;
+              ">BetterX</span>
+   <button type="button" class="btn" onclick="nextQuestion()" style="
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50px;
+    background-color: white;
+    color: black;">Next</button>
+
+</div>
+
+
+    <div id="question2" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #7000ff;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 400px; display:none;" > <br><br>
+       <div class="progress-bar">
+  <div id="progress-1" class="progress-segment"></div>
+  <div id="progress-2" class="progress-segment active"></div>
+  <div id="progress-3" class="progress-segment"></div>
+</div>
+        <label for="q1"><b><br>How is the survey?</b><br><br></label>
+    <br/>
+    <button id="yes" class="choice-btn" onclick="selectOption(this); nextQuestion2();">Good</button><br>
+    <button id="no" class="choice-btn" onclick="selectOption(this); nextQuestion2();">Bad</button><br>
+    <button id="not-understand" class="choice-btn" onclick="selectOption(this); nextQuestion2();">I did not know </button><br>
+    <span style="
+                position: relative;
+                line-height: 21px;
+                font-weight: 800;                
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 80px;
+                height: 23px;
+                font-weight: bold
+                flex-shrink: 0;
+                color: White;
+                 margin-right: 20px; margin-top: 150px; padding: 16px 20px;
+              ">BetterX</span>
+
+    <button type="button" class="btn" onclick="nextQuestion2()">Next</button>            
+    </div>
+   
+    <div id="question3" style="
+      border-radius: 24px 24px 0px 0px;
+      background-color: #7000ff;
+      width: 344px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 400px; display:none;" ><br><br>
+       <div class="progress-bar">
+  <div id="progress-1" class="progress-segment"></div>
+  <div id="progress-2" class="progress-segment"></div>
+  <div id="progress-3" class="progress-segment active"></div>
+</div>
+        <label for="q1"><b><br><br><br><br><br><br>Thank you so much for the feedback</b></label>  
+        <div class="fireworks">
+    <div class="before"></div>
+    <div class="after"></div>
+  </div>
+ <span style="
+                position: relative;
+                line-height: 21px;
+                font-weight: 800;                
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 80px;
+                height: 23px;
+                font-weight: bold
+                flex-shrink: 0;
+                color: White;
+                 margin-right: 20px; margin-top: 130px; padding: 16px 20px;
+              ">BetterX</span>
+   
+     <button type="button" class="btn cancel" onclick="closeForm(); showFireworks();">Close</button>    
+    </div>
+   
+  </form>
+
+<script>
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+function selectOption(btn) {
+    let buttons = document.getElementsByClassName('choice-btn');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+    btn.classList.add('active');
+}
+
+
+function nextQuestion() {
+
+document.getElementById('progress-2').classList.add('active');
+    document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "block";
+}
+function nextQuestion2() {
+
+document.getElementById('progress-3').classList.add('active');
+
+    document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "none";
+    document.getElementById("question3").style.display = "block";
+}
+</script>
+
+</body>
+</html>
