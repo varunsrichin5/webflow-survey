@@ -1,27 +1,14 @@
-
-
-<!-- 
-Requirements:
-1. Internet Connection: This is required to fetch the Roboto font from Google Fonts. If you plan to use the webpage offline, consider downloading and hosting the font locally.
-2. Modern Browser: The animations and styles are optimized for modern browsers. Ensure you're using an updated browser for the best experience.
--->
 <!DOCTYPE html>
 
 <html>
 
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
-body {
-  font-family: "Roboto", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
+body {font-family: Arial, Helvetica, sans-serif;}
 
 * {box-sizing: border-box;}
 
@@ -29,10 +16,8 @@ body {
 /* Button used to open the contact form - fixed at the bottom of the page */
 
 .open-button {
-  transition: transform 0.3s, box-shadow 0.3s;
 
-  background-color: #3498db;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #555;
 
   color: white;
 
@@ -838,52 +823,6 @@ input[type="email"] {
 
 }
 
-
-div {
-    transition: all 0.3s ease;
-}
-
-/* Entrance animations for all divs using keyframes */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-div {
-    animation: fadeIn 0.5s forwards;
-    opacity: 0;  /* Initially set to 0 so that the animation can make it visible */
-}
-
-/* Hover effects for divs */
-div:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Input and Textarea focus animation */
-div input:focus, div textarea:focus {
-    outline: none;
-    box-shadow: 0 0 5px #3498db;
-    border-color: #3498db;
-}
-
-/* Button click animation */
-div button:active {
-    transform: scale(0.95);
-}
-
-/* Select dropdown animation */
-div select {
-    transition: all 0.3s ease;
-}
-
-div select:focus {
-    outline: none;
-    box-shadow: 0 0 5px #3498db;
-    border-color: #3498db;
-}
-
 </style>
 
 </head>
@@ -1304,9 +1243,3 @@ function previousQuestion() {
 </body>
 
 </html>
-
-
-.open-button:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
